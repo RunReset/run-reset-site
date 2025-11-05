@@ -2,6 +2,23 @@
 
 import { useEffect, useMemo, useState } from "react";
 
+/* =========================
+   FIX: Legg til tydelige typer
+   ========================= */
+type Distance = "5km" | "10km";                      // FIX
+type PreviewType = "pdf" | "images";                 // FIX
+type Product = {                                     // FIX
+  key: string;
+  label: string;
+  price: string;
+  link: string;                 // Stripe-lenke
+  previewType: PreviewType;
+  previewLink?: string;         // påkrevd når previewType = "pdf"
+  previewSlides?: string[];     // brukt når previewType = "images"
+};
+type Catalog = Record<Distance, Product[]>;          // FIX
+
+
 export default function Page() {
   // Farger
   const colors = {
@@ -13,90 +30,99 @@ export default function Page() {
     stone:"#1F2937",
   };
 
-  // PRODUKTER – fyll inn dine Stripe-lenker og utdrags-filer i /public/previews
-  const products = {
-    "5km": [
-      { key: "5km_sub15", label: "Sub 15", price: "229 kr",
-        link: "https://buy.stripe.com/REPLACE_5KM_SUB15",
-        previewType: "pdf", previewLink: "/previews/utdrag fra løpeplan.jpg" },
-      { key: "5km_sub16", label: "Sub 16", price: "229 kr",
-        link: "https://buy.stripe.com/REPLACE_5KM_SUB16",
-        previewType: "images", previewSlides: ["/previews/5km_sub16_p1.jpg","/previews/utdrag fra løpeplan.jpg"] },
-      { key: "5km_sub18", label: "Sub 18", price: "229 kr",
-        link: "https://buy.stripe.com/REPLACE_5KM_SUB18",
-        previewType: "pdf", previewLink: "/previews/utdrag fra løpeplan.jpg" },
-      { key: "5km_sub20", label: "Sub 20", price: "229 kr",
-        link: "https://buy.stripe.com/REPLACE_5KM_SUB20",
-        previewType: "images", previewSlides: ["/previews/5km_sub20_p1.jpg","/previews/utdrag fra løpeplan.jpg"] },
-      { key: "5km_sub22", label: "Sub 22", price: "229 kr",
-        link: "https://buy.stripe.com/REPLACE_5KM_SUB22",
-        previewType: "pdf", previewLink: "/previews/utdrag fra løpeplan.jpg" },
-      { key: "5km_sub25", label: "Sub 25", price: "229 kr",
-        link: "https://buy.stripe.com/REPLACE_5KM_SUB25",
-        previewType: "pdf", previewLink: "/previews/utdrag fra løpeplan.jpg" },
-    ],
-    "10km": [
-      { key: "10km_sub34", label: "Sub 34", price: "229 kr",
-        link: "https://buy.stripe.com/REPLACE_10KM_SUB34",
-        previewType: "pdf", previewLink: "/previews/utdrag fra løpeplan.jpg" },
-      { key: "10km_sub36", label: "Sub 36", price: "229 kr",
-        link: "https://buy.stripe.com/REPLACE_10KM_SUB36",
-        previewType: "images", previewSlides: ["/previews/10km_sub36_p1.jpg","/previews/utdrag fra løpeplan.jpg"] },
-      { key: "10km_sub37", label: "Sub 37", price: "229 kr",
-        link: "https://buy.stripe.com/REPLACE_10KM_SUB37",
-        previewType: "pdf", previewLink: "/previews/utdrag fra løpeplan.jpg" },
-      { key: "10km_sub38", label: "Sub 38", price: "229 kr",
-        link: "https://buy.stripe.com/REPLACE_10KM_SUB38",
-        previewType: "images", previewSlides: ["/previews/utdrag fra løpeplan.jpg"] },
-      { key: "10km_sub40", label: "Sub 40", price: "229 kr",
-        link: "https://buy.stripe.com/REPLACE_10KM_SUB40",
-        previewType: "pdf", previewLink: "/previews/utdrag fra løpeplan.jpg" },
-      { key: "10km_sub42", label: "Sub 42", price: "229 kr",
-        link: "https://buy.stripe.com/REPLACE_10KM_SUB42",
-        previewType: "pdf", previewLink: "/previews/utdrag fra løpeplan.jpg" },
-      { key: "10km_sub45", label: "Sub 45", price: "229 kr",
-        link: "https://buy.stripe.com/REPLACE_10KM_SUB45",
-        previewType: "images", previewSlides: ["/previews/10km_sub45_p1.jpg","/previews/utdrag fra løpeplan.jpg"] },
-      { key: "10km_sub50", label: "Sub 50", price: "229 kr",
-        link: "https://buy.stripe.com/REPLACE_10KM_SUB50",
-        previewType: "pdf", previewLink: "/previews/utdrag fra løpeplan.jpg" },
-    ],
-  };
+// PRODUKTER – fyll inn dine Stripe-lenker og utdrags-filer i /public/previews
+const products: Catalog = {                          // FIX: typet som Catalog
+  "5km": [
+    { key: "5km_sub15", label: "Sub 15", price: "229 kr",
+      link: "https://buy.stripe.com/REPLACE_5KM_SUB15",
+      previewType: "pdf", previewLink: "/previews/utdrag-fra-lopeplan.jpg" }, // FIX: unngå mellomrom i filnavn
+    { key: "5km_sub16", label: "Sub 16", price: "229 kr",
+      link: "https://buy.stripe.com/REPLACE_5KM_SUB16",
+      previewType: "images", previewSlides: ["/previews/5km_sub16_p1.jpg","/previews/utdrag-fra-lopeplan.jpg"] },
+    { key: "5km_sub18", label: "Sub 18", price: "229 kr",
+      link: "https://buy.stripe.com/REPLACE_5KM_SUB18",
+      previewType: "pdf", previewLink: "/previews/utdrag-fra-lopeplan.jpg" },
+    { key: "5km_sub20", label: "Sub 20", price: "229 kr",
+      link: "https://buy.stripe.com/REPLACE_5KM_SUB20",
+      previewType: "images", previewSlides: ["/previews/5km_sub20_p1.jpg","/previews/utdrag-fra-lopeplan.jpg"] },
+    { key: "5km_sub22", label: "Sub 22", price: "229 kr",
+      link: "https://buy.stripe.com/REPLACE_5KM_SUB22",
+      previewType: "pdf", previewLink: "/previews/utdrag-fra-lopeplan.jpg" },
+    { key: "5km_sub25", label: "Sub 25", price: "229 kr",
+      link: "https://buy.stripe.com/REPLACE_5KM_SUB25",
+      previewType: "pdf", previewLink: "/previews/utdrag-fra-lopeplan.jpg" },
+  ],
+  "10km": [
+    { key: "10km_sub34", label: "Sub 34", price: "229 kr",
+      link: "https://buy.stripe.com/REPLACE_10KM_SUB34",
+      previewType: "pdf", previewLink: "/previews/utdrag-fra-lopeplan.jpg" },
+    { key: "10km_sub36", label: "Sub 36", price: "229 kr",
+      link: "https://buy.stripe.com/REPLACE_10KM_SUB36",
+      previewType: "images", previewSlides: ["/previews/10km_sub36_p1.jpg","/previews/utdrag-fra-lopeplan.jpg"] },
+    { key: "10km_sub37", label: "Sub 37", price: "229 kr",
+      link: "https://buy.stripe.com/REPLACE_10KM_SUB37",
+      previewType: "pdf", previewLink: "/previews/utdrag-fra-lopeplan.jpg" },
+    { key: "10km_sub38", label: "Sub 38", price: "229 kr",
+      link: "https://buy.stripe.com/REPLACE_10KM_SUB38",
+      previewType: "images", previewSlides: ["/previews/utdrag-fra-lopeplan.jpg"] },
+    { key: "10km_sub40", label: "Sub 40", price: "229 kr",
+      link: "https://buy.stripe.com/REPLACE_10KM_SUB40",
+      previewType: "pdf", previewLink: "/previews/utdrag-fra-lopeplan.jpg" },
+    { key: "10km_sub42", label: "Sub 42", price: "229 kr",
+      link: "https://buy.stripe.com/REPLACE_10KM_SUB42",
+      previewType: "pdf", previewLink: "/previews/utdrag-fra-lopeplan.jpg" },
+    { key: "10km_sub45", label: "Sub 45", price: "229 kr",
+      link: "https://buy.stripe.com/REPLACE_10KM_SUB45",
+      previewType: "images", previewSlides: ["/previews/10km_sub45_p1.jpg","/previews/utdrag-fra-lopeplan.jpg"] },
+    { key: "10km_sub50", label: "Sub 50", price: "229 kr",
+      link: "https://buy.stripe.com/REPLACE_10KM_SUB50",
+      previewType: "pdf", previewLink: "/previews/utdrag-fra-lopeplan.jpg" },
+  ],
+};
 
-  // Valg-state
-  const [distance, setDistance] = useState("5km");
-  const goals = useMemo(() => products[distance], [distance]);
-  const [goalKey, setGoalKey] = useState(goals[3]?.key || products["5km"][0].key);
-  const selected = useMemo(
-    () => goals.find((g) => g.key === goalKey) || goals[0],
-    [goals, goalKey]
-  );
 
-  // Modal (kun utdrag, ingen nye faner)
-  const [isPreviewOpen, setPreviewOpen] = useState(false);
-  const [previewPDF, setPreviewPDF] = useState(null);
-  const [previewImages, setPreviewImages] = useState(null);
+// Valg-state
+const [distance, setDistance] = useState<Distance>("5km");
+const goals = useMemo<Product[]>(() => products[distance], [distance]);
 
-  function openPreview(p) {
-    if (p.previewType === "pdf" && p.previewLink) {
-      setPreviewPDF(p.previewLink);
-      setPreviewImages(null);
-    } else if (p.previewType === "images" && p.previewSlides?.length) {
-      setPreviewImages(p.previewSlides);
-      setPreviewPDF(null);
-    }
-    setPreviewOpen(true);
-    document.documentElement.style.overflow = "hidden";
-  }
-  function closePreview() {
-    setPreviewOpen(false);
-    setPreviewPDF(null);
+const [goalKey, setGoalKey] = useState<string>(
+  goals[3]?.key || products["5km"][0].key
+);
+
+const selected = useMemo<Product>(
+  () => goals.find((g) => g.key === goalKey) || goals[0],
+  [goals, goalKey]
+);
+
+
+
+const [isPreviewOpen, setPreviewOpen] = useState(false);
+const [previewPDF, setPreviewPDF] = useState<string | null>(null);
+const [previewImages, setPreviewImages] = useState<string[] | null>(null);
+
+function openPreview(p: Product) {
+  if (p.previewType === "pdf" && p.previewLink) {
+    setPreviewPDF(p.previewLink);
     setPreviewImages(null);
-    document.documentElement.style.overflow = "";
+  } else if (p.previewType === "images" && p.previewSlides?.length) {
+    setPreviewImages(p.previewSlides);
+    setPreviewPDF(null);
   }
+  setPreviewOpen(true);
+  document.documentElement.style.overflow = "hidden";
+}
+
+function closePreview(): void {
+  setPreviewOpen(false);
+  setPreviewPDF(null);
+  setPreviewImages(null);
+  document.documentElement.style.overflow = "";
+}
+
+
 
   useEffect(() => {
-    const onKey = (e) => e.key === "Escape" && closePreview();
+    const onKey = (e: KeyboardEvent) => e.key === "Escape" && closePreview();
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
   }, []);
@@ -179,10 +205,11 @@ export default function Page() {
                   className="mt-1 w-full rounded-xl border px-3 py-2 text-sm focus:outline-none"
                   value={distance}
                   onChange={(e) => {
-                    const d = e.target.value;
+                    const d = e.target.value as Distance;   // FIX
                     setDistance(d);
-                    setGoalKey(products[d][0].key);
+                    setGoalKey(products[d][0].key);         // FIX: nå er d garantert '5km' | '10km'
                   }}
+                  
                 >
                   <option value="5km">5 km</option>
                   <option value="10km">10 km</option>
@@ -248,7 +275,7 @@ export default function Page() {
           </div>
           <div className="space-y-2 text-gray-600">
             <a href="#velgplan" className="block hover:text-gray-900">Velg plan</a>
-            <a href="mailto:epost@lopeplaner.no" className="block hover:text-gray-900"></a>
+            <a href="mailto:reset.run.reset@gmail.com" className="block hover:text-gray-900">Kontakt: reset.run.reset@gmail.com</a>
           </div>
           <div className="text-xs text-gray-500">
             <p>© {new Date().getFullYear()} Løpeprogram. Alle rettigheter reservert.</p>
@@ -269,7 +296,8 @@ export default function Page() {
           <div className="absolute inset-0 bg-black/50" />
           <div
             className="relative z-[101] w-full max-w-4xl bg-white rounded-2xl shadow-xl overflow-hidden"
-            onClick={(e) => e.stopPropagation()}
+            onClick={(e: React.MouseEvent<HTMLDivElement>) => e.stopPropagation()}
+
           >
             <div className="flex items-center justify-between border-b px-4 py-3">
               <p className="font-medium">Forhåndsvis utdrag</p>
@@ -279,7 +307,7 @@ export default function Page() {
             {/* PDF-utdrag */}
             {previewPDF && (
               <div className="w-full" style={{ height: "75vh" }}>
-                <iframe title="Plan-utdrag" src={`${previewPDF}#toolbar=0&navpanes=0`} className="w-full h-full" />
+                <iframe title="Plan-utdrag" src={`${encodeURI(previewPDF!)}#toolbar=0&navpanes=0`} className="w-full h-full" />
               </div>
             )}
 
