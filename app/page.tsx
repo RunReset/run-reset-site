@@ -34,7 +34,7 @@ export default function Page() {
 const products: Catalog = {                          // FIX: typet som Catalog
   "5km": [
     { key: "5km_sub15", label: "Sub 15", price: "229 kr",
-      link: "https://buy.stripe.com/REPLACE_5KM_SUB15",
+      link: "https://run-reset-site-79z9.vercel.app/Files/5km_sub15_NO_v2.pdf",
       previewType: "pdf", previewLink: "/previews/utdrag-fra-lopeplan.jpg" }, // FIX: unngå mellomrom i filnavn
     { key: "5km_sub16", label: "Sub 16", price: "229 kr",
       link: "https://buy.stripe.com/REPLACE_5KM_SUB16",
