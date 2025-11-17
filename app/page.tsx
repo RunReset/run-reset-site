@@ -132,7 +132,7 @@ function closePreview(): void {
       {/* NAV */}
       <header className="sticky top-0 z-50 bg-white/80 backdrop-blur border-b">
         <div className="mx-auto max-w-6xl px-4 py-3 flex items-center justify-between">
-          <a href="#hero" className="font-semibold tracking-tight text-lg">Run Reset - løpeplaner for 5km og 10km</a>
+          <a href="#hero" className="font-semibold tracking-tight text-lg">Run Reset</a>
           <nav className="hidden md:flex gap-6 text-sm">
             <a href="#velgplan" className="hover:text-black">Velg plan</a>
             <a href="#how" className="hover:text-black"></a>
@@ -155,7 +155,7 @@ function closePreview(): void {
         <div className="relative mx-auto max-w-6xl px-4 py-16 grid md:grid-cols-2 gap-12 items-start">
           <div>
             <h1 className="text-4xl md:text-5xl font-semibold leading-tight text-gray-900">
-              Løpeprogrammer som passer hverdagen din
+              Løpeplaner som passer hverdagen din
             </h1>
             <p className="mt-4 text-lg text-gray-600 max-w-2xl leading-relaxed">
               Løpeprogrammer utviklet for løpere som søker struktur, kvalitet og målbar fremgang.<br />
@@ -279,7 +279,7 @@ function closePreview(): void {
           </div>
           <div className="text-xs text-gray-500">
             <p>© {new Date().getFullYear()} Løpeprogram. Alle rettigheter reservert.</p>
-            <p className="mt-2">Org.nr: <span className="font-medium">[Ditt organisasjonsnummer her]</span></p>
+            <p className="mt-2">. <span className="font-medium">[.]</span></p>
             <p className="mt-2">Oslo, Norge</p>
           </div>
         </div>
